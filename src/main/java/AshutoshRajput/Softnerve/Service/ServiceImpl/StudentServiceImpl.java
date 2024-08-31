@@ -28,7 +28,7 @@ public class StudentServiceImpl implements StudentServiceInterface {
 
     @Override
     public StudentDTO createStudent(StudentDTO studentDTO) {
-        if (studentRepository.findByemail(studentDTO.getEmail()).isPresent()) {
+        if (studentRepository.findByEmail(studentDTO.getEmail()).isPresent()) {
             logger.error("Student creation failed: Student already exists with email: {}", studentDTO.getEmail());
             throw new ResourceAlreadyExistsException("Student already exists with this email.");
         }
