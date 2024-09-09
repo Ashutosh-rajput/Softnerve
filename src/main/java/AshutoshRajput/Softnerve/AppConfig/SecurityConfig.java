@@ -1,9 +1,10 @@
 package AshutoshRajput.Softnerve.AppConfig;
 
 import AshutoshRajput.Softnerve.Security.JwtAuthFilter;
-import AshutoshRajput.Softnerve.Service.ServiceImpl.CustonUserDetailService;
+import AshutoshRajput.Softnerve.Service.ServiceImpl.CustomUserDetailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.ProviderManager;
@@ -27,7 +28,7 @@ public class SecurityConfig {
 
     @Bean
     public UserDetailsService userDetailsService() {
-        return new CustonUserDetailService();
+        return new CustomUserDetailService();
     }
 
     @Bean
@@ -35,7 +36,7 @@ public class SecurityConfig {
         http
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/user/welcome", "/user/create-user", "/login/autologin").permitAll()
+                        .requestMatchers("/student/welcome", "/student/create", "/login/autologin","/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html").permitAll()
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(session -> session

@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -25,6 +26,8 @@ public class StudentServiceImpl implements StudentServiceInterface {
 
     @Autowired
     private StudentMapper studentMapper;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @Override
     public StudentDTO createStudent(StudentDTO studentDTO) {
@@ -33,6 +36,7 @@ public class StudentServiceImpl implements StudentServiceInterface {
             throw new ResourceAlreadyExistsException("Student already exists with this email.");
         }
         Student student = studentMapper.StudentDTOtoStudent(studentDTO);
+        student.setPassword(passwordEncoder.encode(student.getPassword()));
         Student savedStudent = studentRepository.save(student);
         logger.info("Student created successfully with ID: {}", savedStudent.getId());
         return studentMapper.StudenttoStudentDTO(savedStudent);

@@ -1,6 +1,6 @@
 package AshutoshRajput.Softnerve.Security;
 
-import AshutoshRajput.Softnerve.Service.ServiceImpl.CustonUserDetailService;
+import AshutoshRajput.Softnerve.Service.ServiceImpl.CustomUserDetailService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -20,7 +20,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
     @Autowired
     private JwtService jwtService;
     @Autowired
-    private CustonUserDetailService customUserInfoDetailService;
+    private CustomUserDetailService customUserDetailService;
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         String authHeader=request.getHeader("Authorization");
@@ -33,7 +33,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
         }
 
         if(username!=null && SecurityContextHolder.getContext().getAuthentication()==null){
-            UserDetails userDetails=customUserInfoDetailService.loadUserByUsername(username);
+            UserDetails userDetails=customUserDetailService.loadUserByUsername(username);
             if(jwtService.validateToken(token,userDetails)){
                 UsernamePasswordAuthenticationToken authenticationToken=new UsernamePasswordAuthenticationToken(userDetails,null,userDetails.getAuthorities());
                 authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
