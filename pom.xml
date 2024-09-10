@@ -109,6 +109,7 @@
 				</configuration>
 			</plugin>
 		</plugins>
+		<finalName>Softnerve</finalName>
 	</build>
 
 </project>
