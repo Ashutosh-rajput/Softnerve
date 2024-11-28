@@ -34,7 +34,7 @@ public class SwaggerConfig {
         return new OpenAPI()
                 .info(new Info()
                         .title("Student Management Application")
-                        .description("This project is designed to manage student information and offers functions for creating, updating, deleting, and retrieving student records. Additionally, it includes a login API for authentication using JWT tokens. The `create student` API is an open endpoint. To use it, you will need to first log in, then copy the JWT token and paste it into the header for authentication.\n\n" +
+                        .description("This project is designed to manage information and offers functions for creating, updating, deleting, and retrieving student records. Additionally, it includes a login API for authentication using JWT tokens. The `create student` API is an open endpoint. To use it, you will need to first log in, then copy the JWT token and paste it into the header for authentication.\n\n" +
                                 "### API Summary\n" +
                                 "**Base URL:** `http://localhost:8090`\n\n" +
                                 "1. **Create Student**\n" +

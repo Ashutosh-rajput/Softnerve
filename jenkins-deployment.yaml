@@ -21,11 +21,11 @@ spec:
             - containerPort: 50000
           resources:
             limits:
-              memory: "2Gi"
-              cpu: "1"
+              memory: "750Mi"
+              cpu: "250m"
             requests:
-              memory: "1Gi"
-              cpu: "500m"
+              memory: "512Mi"
+              cpu: "100m"
           volumeMounts:
             - name: jenkins-home
               mountPath: /var/jenkins_home
@@ -33,18 +33,7 @@ spec:
         - name: jenkins-home
           persistentVolumeClaim:
             claimName: jenkins-pvc
----
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: jenkins-pvc
-  namespace: jenkins
-spec:
-  accessModes:
-    - ReadWriteOnce
-  resources:
-    requests:
-      storage: 10Gi
+
 ---
 apiVersion: v1
 kind: Service
@@ -54,11 +43,38 @@ metadata:
 spec:
   type: LoadBalancer
   ports:
-  - name: http
-    port: 8080
-    targetPort: 8080
-  - name: jnlp
-    port: 50000
-    targetPort: 50000
+    - name: http
+      port: 8080
+      targetPort: 8080
+    - name: jnlp
+      port: 50000
+      targetPort: 50000
   selector:
     app: jenkins
+
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: jenkins-pv
+spec:
+  capacity:
+    storage: 4Gi
+  accessModes:
+    - ReadWriteOnce
+  gcePersistentDisk:
+    pdName: jenkins-disk
+  storageClassName: standard  # Add this line to specify the StorageClass
+---
+
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: jenkins-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 4Gi
+  storageClassName: standard  # Add this line to specify the StorageClass
