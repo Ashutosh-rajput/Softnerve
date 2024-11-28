@@ -24,4 +24,4 @@ COPY --from=build /app/target/Softnerve.jar /app/Softnerve.jar
 EXPOSE 8080
 
 # Define the entry point to run the application with the prod profile
-ENTRYPOINT ["java", "-jar", "/app.jar"]
+ENTRYPOINT ["java", "-jar", "/app/Softnerve.jar"]
