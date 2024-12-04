@@ -58,7 +58,7 @@ public class SwaggerConfig {
                                 "**Database:** `MongoDB`\n")
                         .version("1.0")
                         .contact(new Contact()
-                                .name("Admin")
+                                .name("Ashutosh rajput")
                                 .email("admin@gmail.com"))
                 )
 
