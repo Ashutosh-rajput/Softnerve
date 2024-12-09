@@ -44,6 +44,10 @@ public class StudentController {
 
     @GetMapping("/get/{id}")
     @SecurityRequirement(name = "BearerAuth")
+    @Operation(
+            summary = "Create a new student",
+            description = "This endpoint allows creating a new student without requiring authentication."
+    )
     public ResponseEntity<StudentDTO> getStudentById(@PathVariable Long id) {
         return ResponseEntity.ok(studentService.getStudentByid(id));
     }
